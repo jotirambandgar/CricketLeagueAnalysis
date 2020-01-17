@@ -5,45 +5,64 @@ import com.opencsv.bean.CsvBindByName;
 public class BatsMan {
 
     @CsvBindByName(column = "POS", required = true)
-    int pos;
+    private int pos;
 
     @CsvBindByName(column = "PLAYER", required = true)
-    String playerName;
+    private String playerName;
 
     @CsvBindByName(column = "Mat", required = true)
-    int matches;
+    private int matches;
 
     @CsvBindByName(column = "Inns", required = true)
-    int innings;
+    private int innings;
 
     @CsvBindByName(column = "NO", required = true)
-    int notOut;
+    private int notOut;
 
     @CsvBindByName(column = "Runs", required = true)
-    int runs;
+    private int runs;
 
     @CsvBindByName(column = "HS", required = true)
-    String highScore;
+    private String highScore;
 
     @CsvBindByName(column = "Avg", required = true)
-    String average;
+    private String average;
 
     @CsvBindByName(column = "BF", required = true)
-    int ballFaced;
+    private int ballFaced;
 
     @CsvBindByName(column = "SR", required = true)
-    String strikeRate;
+    private String strikeRate;
 
     @CsvBindByName(column = "100", required = true)
-    int hundred;
+    private int hundred;
 
     @CsvBindByName(column = "50", required = true)
-    int fifty;
+    private int fifty;
 
     @CsvBindByName(column = "4s", required = true)
-    int fours;
+    private int fours;
 
     @CsvBindByName(column = "6s", required = true)
-    int six;
+    private int six;
 
+    @Override
+    public String toString() {
+        return "BatsMan{" +
+                "pos=" + pos +
+                ", playerName='" + playerName + '\'' +
+                ", matches=" + matches +
+                ", innings=" + innings +
+                ", notOut=" + notOut +
+                ", runs=" + runs +
+                ", highScore='" + highScore + '\'' +
+                ", average='" + average + '\'' +
+                ", ballFaced=" + ballFaced +
+                ", strikeRate='" + strikeRate + '\'' +
+                ", hundred=" + hundred +
+                ", fifty=" + fifty +
+                ", fours=" + fours +
+                ", six=" + six +
+                '}';
+    }
 }
