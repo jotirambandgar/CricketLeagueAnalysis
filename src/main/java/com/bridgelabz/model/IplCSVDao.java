@@ -2,33 +2,33 @@ package com.bridgelabz.model;
 
 public class IplCSVDao {
 
-    private int pos;
+    public int pos;
 
-    private String playerName;
+    public String playerName;
 
-    private int matches;
+    public int matches;
 
-    private int innings;
+    public int innings;
 
-    private int notOut;
+    public int notOut;
 
-    private int runs;
+    public int runs;
 
-    private String highScore;
+    public String highScore;
 
-    private String average;
+    public String average;
 
-    private int ballFaced;
+    public int ballFaced;
 
-    private String strikeRate;
+    public String strikeRate;
 
-    private int hundred;
+    public int hundred;
 
-    private int fifty;
+    public int fifty;
 
-    private int fours;
+    public int fours;
 
-    private int six;
+    public int six;
 
     public IplCSVDao(BatsMan batsMan) {
 
@@ -46,5 +46,25 @@ public class IplCSVDao {
         this.fifty = batsMan.fifty;
         this.fours = batsMan.fours;
         this.six = batsMan.six;
+    }
+
+    @Override
+    public String toString() {
+        return "IplCSVDao{" +
+                "pos=" + pos +
+                ", playerName='" + playerName + '\'' +
+                ", matches=" + matches +
+                ", innings=" + innings +
+                ", notOut=" + notOut +
+                ", runs=" + runs +
+                ", highScore='" + highScore + '\'' +
+                ", average='" + average + '\'' +
+                ", ballFaced=" + ballFaced +
+                ", strikeRate='" + strikeRate + '\'' +
+                ", hundred=" + hundred +
+                ", fifty=" + fifty +
+                ", fours=" + fours +
+                ", six=" + six +
+                '}';
     }
 }

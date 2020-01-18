@@ -1,7 +1,10 @@
 import com.bridgelabz.LeagueAnalyser;
 import com.bridgelabz.exception.LeagueAnalyserException;
+import com.bridgelabz.model.IplCSVDao;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.List;
 
 public class CricketLeagueAnalyserTest {
 
@@ -60,4 +63,14 @@ public class CricketLeagueAnalyserTest {
        }
     }
 
+    @Test
+    public void whenGivenIplMostRunsCSVFile_ShouldReturnSortedDataBasedOnAverage() {
+
+        LeagueAnalyser leageAnalyser = new LeagueAnalyser();
+        leageAnalyser.loadMostRunData(IPL_MOST_RUNS_CSV_FILE_PATH);
+        List<IplCSVDao> sortedData = leageAnalyser.sortBaseOnAverage();
+        IplCSVDao csvDao = sortedData.get(0);
+        Assert.assertEquals("Ben Cutting",csvDao.playerName);
+
+    }
 }

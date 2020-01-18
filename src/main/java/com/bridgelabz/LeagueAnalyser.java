@@ -44,7 +44,9 @@ public class LeagueAnalyser {
     }
 
     public List sortBaseOnAverage() {
-       // batsManData.stream().sorted((batsMan1,batsMan2)-> batsMan1.)
-        return null;
+
+        return batsManData.stream().sorted((batsMan1,batsMan2)-> batsMan2.average.
+                compareTo(batsMan1.average)).collect(Collectors.toList());
+
     }
 }
