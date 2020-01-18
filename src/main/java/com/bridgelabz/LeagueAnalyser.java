@@ -5,25 +5,32 @@ import com.blsolution.factory.CSVBuilderFactory;
 import com.blsolution.repository.IOpenCsvBuilder;
 import com.bridgelabz.exception.LeagueAnalyserException;
 import com.bridgelabz.model.BatsMan;
+import com.bridgelabz.model.IplCSVDao;
 
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
-public class LeageAnalyser {
+public class LeagueAnalyser {
 
-
+    private List<IplCSVDao> batsManData = new ArrayList<>();
 
     public int loadMostRunData(String csvFilePath) {
 
-        List<BatsMan> batsManData = new ArrayList<>();
+
         try(Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
 
             IOpenCsvBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-            batsManData = csvBuilder.getFileList(reader, BatsMan.class);
+            Iterator<BatsMan> batsManIterator = csvBuilder.getIterator(reader, BatsMan.class);
+            Iterable<BatsMan> batsManIterable = () -> batsManIterator;
+            batsManData = StreamSupport.stream(batsManIterable.spliterator(),false)
+                    .map(IplCSVDao::new).collect(Collectors.toList());
 
 
         } catch (IOException e) {
@@ -34,5 +41,10 @@ public class LeageAnalyser {
         }
         return batsManData.size();
 
+    }
+
+    public List sortBaseOnAverage() {
+       // batsManData.stream().sorted((batsMan1,batsMan2)-> batsMan1.)
+        return null;
     }
 }

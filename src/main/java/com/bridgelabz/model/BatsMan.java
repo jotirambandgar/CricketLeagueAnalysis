@@ -5,46 +5,46 @@ import com.opencsv.bean.CsvBindByName;
 public class BatsMan {
 
     @CsvBindByName(column = "POS", required = true)
-    private int pos;
+    public int pos;
 
     @CsvBindByName(column = "PLAYER", required = true)
-    private String playerName;
+    public String playerName;
 
     @CsvBindByName(column = "Mat", required = true)
-    private int matches;
+    public int matches;
 
     @CsvBindByName(column = "Inns", required = true)
-    private int innings;
+    public int innings;
 
     @CsvBindByName(column = "NO", required = true)
-    private int notOut;
+    public int notOut;
 
     @CsvBindByName(column = "Runs", required = true)
-    private int runs;
+    public int runs;
 
     @CsvBindByName(column = "HS", required = true)
-    private String highScore;
+    public String highScore;
 
     @CsvBindByName(column = "Avg", required = true)
-    private String average;
+    public String average;
 
     @CsvBindByName(column = "BF", required = true)
-    private int ballFaced;
+    public int ballFaced;
 
     @CsvBindByName(column = "SR", required = true)
-    private String strikeRate;
+    public String strikeRate;
 
     @CsvBindByName(column = "100", required = true)
-    private int hundred;
+    public int hundred;
 
     @CsvBindByName(column = "50", required = true)
-    private int fifty;
+    public int fifty;
 
     @CsvBindByName(column = "4s", required = true)
-    private int fours;
+    public int fours;
 
     @CsvBindByName(column = "6s", required = true)
-    private int six;
+    public int six;
 
     @Override
     public String toString() {
@@ -65,4 +65,7 @@ public class BatsMan {
                 ", six=" + six +
                 '}';
     }
+
+
+
 }

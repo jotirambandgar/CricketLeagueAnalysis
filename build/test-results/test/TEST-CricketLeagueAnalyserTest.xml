@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="CricketLeagueAnalyserTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-01-17T08:03:13" hostname="jotiram-Inspiron-15-3567" time="0.135">
+<testsuite name="CricketLeagueAnalyserTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2020-01-17T10:52:18" hostname="jotiram-Inspiron-15-3567" time="0.152">
   <properties/>
-  <testcase name="whenGivenCSVFileRecordOfMostRuns_ShouldReturnProperData" classname="CricketLeagueAnalyserTest" time="0.135"/>
+  <testcase name="whenGivenCSVFileRecordOfMostRuns_ShouldReturnProperData" classname="CricketLeagueAnalyserTest" time="0.122"/>
+  <testcase name="whenGivenIplMostRunsCSV_WithWrongDelimiter_ShouldThrowException" classname="CricketLeagueAnalyserTest" time="0.021"/>
+  <testcase name="whenGivenCSVFile_WithWrongHeader_SholdThrowAnalyserException" classname="CricketLeagueAnalyserTest" time="0.007"/>
+  <testcase name="whenGivenWrongCSVFilePath_ShouldThrowAnalyserException" classname="CricketLeagueAnalyserTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

@@ -1,4 +1,4 @@
-import com.bridgelabz.LeageAnalyser;
+import com.bridgelabz.LeagueAnalyser;
 import com.bridgelabz.exception.LeagueAnalyserException;
 import org.junit.Assert;
 import org.junit.Test;
@@ -16,7 +16,7 @@ public class CricketLeagueAnalyserTest {
     @Test
     public void whenGivenCSVFileRecordOfMostRuns_ShouldReturnProperData() {
 
-        LeageAnalyser leageAnalyser = new LeageAnalyser();
+        LeagueAnalyser leageAnalyser = new LeagueAnalyser();
         int noOFRecords = leageAnalyser.loadMostRunData(IPL_MOST_RUNS_CSV_FILE_PATH);
         Assert.assertEquals(100,noOFRecords);
     }
@@ -25,7 +25,7 @@ public class CricketLeagueAnalyserTest {
     public void whenGivenWrongCSVFilePath_ShouldThrowAnalyserException() {
         try {
 
-            LeageAnalyser leageAnalyser = new LeageAnalyser();
+            LeagueAnalyser leageAnalyser = new LeagueAnalyser();
             int noOFRecords = leageAnalyser.loadMostRunData(WRONG_IPL_MOST_RUNS_CSV_FILE_PATH);
 
         }catch (LeagueAnalyserException e) {
@@ -37,7 +37,7 @@ public class CricketLeagueAnalyserTest {
     public void whenGivenCSVFile_WithWrongHeader_SholdThrowAnalyserException() {
         try {
 
-            LeageAnalyser leageAnalyser = new LeageAnalyser();
+            LeagueAnalyser leageAnalyser = new LeagueAnalyser();
             int noOFRecords = leageAnalyser.loadMostRunData(WRONG_HEADER_CSV_FILE_PATH);
 
         }catch (LeagueAnalyserException e){
@@ -51,7 +51,7 @@ public class CricketLeagueAnalyserTest {
     public void whenGivenIplMostRunsCSV_WithWrongDelimiter_ShouldThrowException() {
         try {
 
-            LeageAnalyser leageAnalyser = new LeageAnalyser();
+            LeagueAnalyser leageAnalyser = new LeagueAnalyser();
             int noOFRecords = leageAnalyser.loadMostRunData(WRONG_HEADER_CSV_FILE_PATH);
 
         }catch (LeagueAnalyserException e){
