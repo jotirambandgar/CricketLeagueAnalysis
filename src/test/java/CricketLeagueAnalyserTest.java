@@ -45,7 +45,7 @@ public class CricketLeagueAnalyserTest {
 
         }catch (LeagueAnalyserException e){
 
-            Assert.assertEquals(e.type,LeagueAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
+            Assert.assertEquals(e.type,LeagueAnalyserException.ExceptionType.IPL_FILE_PROBLEM);
 //            Assert.assertEquals();
         }
     }
@@ -59,7 +59,7 @@ public class CricketLeagueAnalyserTest {
 
         }catch (LeagueAnalyserException e){
 
-            Assert.assertEquals(e.type,LeagueAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
+            Assert.assertEquals(e.type,LeagueAnalyserException.ExceptionType.IPL_FILE_PROBLEM);
        }
     }
 

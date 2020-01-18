@@ -37,7 +37,7 @@ public class LeagueAnalyser {
            throw new LeagueAnalyserException(e.getMessage(),LeagueAnalyserException.ExceptionType.NO_CSV_FILE);
         } catch (CSVBuilderException builderException){
             throw new LeagueAnalyserException(builderException.getMessage() ,
-                                    LeagueAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
+                                    LeagueAnalyserException.ExceptionType.IPL_FILE_PROBLEM);
         }
         return batsManData.size();
 
