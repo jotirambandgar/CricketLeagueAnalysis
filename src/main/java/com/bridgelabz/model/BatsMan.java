@@ -1,50 +1,54 @@
 package com.bridgelabz.model;
 
 import com.opencsv.bean.CsvBindByName;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class BatsMan {
 
     @CsvBindByName(column = "POS", required = true)
-    public int pos;
+    private int pos;
 
     @CsvBindByName(column = "PLAYER", required = true)
-    public String playerName;
+    private String playerName;
 
     @CsvBindByName(column = "Mat", required = true)
-    public int matches;
+    private int matches;
 
     @CsvBindByName(column = "Inns", required = true)
-    public int innings;
+    private int innings;
 
     @CsvBindByName(column = "NO", required = true)
-    public int notOut;
+    private int notOut;
 
     @CsvBindByName(column = "Runs", required = true)
-    public int runs;
+    private int runs;
 
     @CsvBindByName(column = "HS", required = true)
-    public String highScore;
+    private String highScore;
 
     @CsvBindByName(column = "Avg", required = true)
-    public String average;
+    private String average;
 
     @CsvBindByName(column = "BF", required = true)
-    public int ballFaced;
+    private int ballFaced;
 
     @CsvBindByName(column = "SR", required = true)
-    public String strikeRate;
+    private String strikeRate;
 
     @CsvBindByName(column = "100", required = true)
-    public int hundred;
+    private int hundred;
 
     @CsvBindByName(column = "50", required = true)
-    public int fifty;
+    private int fifty;
 
     @CsvBindByName(column = "4s", required = true)
-    public int fours;
+    private int fours;
 
     @CsvBindByName(column = "6s", required = true)
-    public int six;
+    private int six;
 
     @Override
     public String toString() {

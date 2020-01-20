@@ -32,7 +32,6 @@ public class LeagueAnalyser {
             batsManData = StreamSupport.stream(batsManIterable.spliterator(),false)
                     .map(IplCSVDao::new).collect(Collectors.toList());
 
-
         } catch (IOException e) {
            throw new LeagueAnalyserException(e.getMessage(),LeagueAnalyserException.ExceptionType.NO_CSV_FILE);
         } catch (CSVBuilderException builderException){
@@ -44,9 +43,8 @@ public class LeagueAnalyser {
     }
 
     public List sortBaseOnAverage() {
-
-        return batsManData.stream().sorted((batsMan1,batsMan2)-> batsMan2.average.
-                compareTo(batsMan1.average)).collect(Collectors.toList());
+        return batsManData.stream().sorted((batsMan1,batsMan2)-> batsMan2.getAverage().
+                compareTo(batsMan1.getAverage())).collect(Collectors.toList());
 
     }
 }

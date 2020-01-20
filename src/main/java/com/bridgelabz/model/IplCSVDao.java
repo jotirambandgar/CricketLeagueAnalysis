@@ -1,51 +1,56 @@
 package com.bridgelabz.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class IplCSVDao {
 
-    public int pos;
+    private int pos;
 
-    public String playerName;
+    private String playerName;
 
-    public int matches;
+    private int matches;
 
-    public int innings;
+    private int innings;
 
-    public int notOut;
+    private int notOut;
 
-    public int runs;
+    private int runs;
 
-    public String highScore;
+    private String highScore;
 
-    public String average;
+    private String average;
 
-    public int ballFaced;
+    private int ballFaced;
 
-    public String strikeRate;
+    private String strikeRate;
 
-    public int hundred;
+    private int hundred;
 
-    public int fifty;
+    private int fifty;
 
-    public int fours;
+    private int fours;
 
-    public int six;
+    private int six;
 
     public IplCSVDao(BatsMan batsMan) {
 
-        this.pos = batsMan.pos;
-        this.playerName = batsMan.playerName;
-        this.matches = batsMan.matches;
-        this.innings = batsMan.innings;
-        this.notOut = batsMan.notOut;
-        this.runs = batsMan.runs;
-        this.highScore = batsMan.highScore;
-        this.average = batsMan.average;
-        this.ballFaced = batsMan.ballFaced;
-        this.strikeRate = batsMan.strikeRate;
-        this.hundred = batsMan.hundred;
-        this.fifty = batsMan.fifty;
-        this.fours = batsMan.fours;
-        this.six = batsMan.six;
+        this.pos = batsMan.getPos();
+        this.playerName = batsMan.getPlayerName();
+        this.matches = batsMan.getMatches();
+        this.innings = batsMan.getInnings();
+        this.notOut = batsMan.getNotOut();
+        this.runs = batsMan.getRuns();
+        this.highScore = batsMan.getHighScore();
+        this.average = batsMan.getAverage();
+        this.ballFaced = batsMan.getBallFaced();
+        this.strikeRate = batsMan.getStrikeRate();
+        this.hundred = batsMan.getHundred();
+        this.fifty = batsMan.getFifty();
+        this.fours = batsMan.getFours();
+        this.six = batsMan.getSix();
     }
 
     @Override

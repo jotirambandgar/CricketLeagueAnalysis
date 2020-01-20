@@ -55,7 +55,7 @@ public class CricketLeagueAnalyserTest {
         try {
 
             LeagueAnalyser leageAnalyser = new LeagueAnalyser();
-            int noOFRecords = leageAnalyser.loadMostRunData(WRONG_HEADER_CSV_FILE_PATH);
+            int noOFRecords = leageAnalyser.loadMostRunData(WRONG_DELIMITER_CSV_FILE_PATH);
 
         }catch (LeagueAnalyserException e){
 
@@ -70,7 +70,7 @@ public class CricketLeagueAnalyserTest {
         leageAnalyser.loadMostRunData(IPL_MOST_RUNS_CSV_FILE_PATH);
         List<IplCSVDao> sortedData = leageAnalyser.sortBaseOnAverage();
         IplCSVDao csvDao = sortedData.get(0);
-        Assert.assertEquals("Ben Cutting",csvDao.playerName);
+        Assert.assertEquals("Ben Cutting",csvDao.getPlayerName());
 
     }
 }
