@@ -12,6 +12,7 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -43,8 +44,13 @@ public class LeagueAnalyser {
     }
 
     public List sortBaseOnAverage() {
-        return batsManData.stream().sorted((batsMan1,batsMan2)-> batsMan2.getAverage().
-                compareTo(batsMan1.getAverage())).collect(Collectors.toList());
+        batsManData.sort(Comparator.comparing(IplCSVDao::getAverage).reversed());
+        return batsManData;
 
+    }
+
+    public List<IplCSVDao> getTopStrikingRates() {
+         batsManData.sort(Comparator.comparing(IplCSVDao::getStrikeRate).reversed());
+         return batsManData;
     }
 }

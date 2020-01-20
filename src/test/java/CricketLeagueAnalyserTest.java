@@ -73,4 +73,13 @@ public class CricketLeagueAnalyserTest {
         Assert.assertEquals("Ben Cutting",csvDao.getPlayerName());
 
     }
+
+    @Test
+    public void whenGivenIplMostRunsCsvFile_ShouldReturnTopStrickingRate() {
+
+        LeagueAnalyser leageAnalyser = new LeagueAnalyser();
+        leageAnalyser.loadMostRunData(IPL_MOST_RUNS_CSV_FILE_PATH);
+        List<IplCSVDao> sortedData = leageAnalyser.getTopStrikingRates();
+        Assert.assertEquals("Kedar Jadhav",sortedData.get(0).getPlayerName());
+    }
 }
