@@ -23,6 +23,14 @@ public class LeagueAnalyser {
     private List<IplCSVDao> batsManData = new ArrayList<>();
 
 
+
+
+    private enum ComparatorType{
+        AVERAGE,
+        STRIKERATE,
+        SIXESANDFOUR
+    }
+
     public int loadMostRunData(String csvFilePath) {
 
 
@@ -45,20 +53,43 @@ public class LeagueAnalyser {
     }
 
     public List sortBaseOnAverage() {
-        batsManData.sort(Comparator.comparing(IplCSVDao::getAverage).reversed());
-        return batsManData;
+       getSortedData(ComparatorType.AVERAGE);
+       return batsManData;
 
     }
 
     public List<IplCSVDao> getTopStrikingRates() {
-         batsManData.sort(Comparator.comparing(IplCSVDao::getStrikeRate).reversed());
-         return batsManData;
+        System.out.println("in strike rate1");
+        getSortedData(ComparatorType.STRIKERATE);
+        return batsManData;
+
     }
 
-    public List sortBaseOnSixesAndFours() {
-       return batsManData.stream().sorted((player1, player2) ->
-            ((player2.getSix() * 6) + (player2.getFours() * 4)) -
-                    ((player1.getSix() * 6) + (player1.getFours() * 4))).collect(Collectors.toList());
+    public List<IplCSVDao> sortBaseOnSixesAndFours() {
+        getSortedData(ComparatorType.SIXESANDFOUR);
+        return batsManData;
     }
+    public void getSortedData(ComparatorType comparatorType) {
+
+         batsManData.sort(this.getComparator(comparatorType));
+
+    }
+
+
+    public Comparator<IplCSVDao> getComparator(ComparatorType comparatorType){
+        if(comparatorType.equals(ComparatorType.AVERAGE)) {
+
+            return (IplCSVDao player1,IplCSVDao player2) -> (int) (player2.getAverage()-( player1.getAverage()));
+            }
+        if(comparatorType.equals(ComparatorType.STRIKERATE)) {
+
+            return (IplCSVDao player1, IplCSVDao player2) -> (int) (player2.getStrikeRate() - (player1.getStrikeRate()));
+        }
+
+            return (IplCSVDao player1,IplCSVDao player2) ->
+                ((player2.getSix() * 6) + (player2.getFours() * 4)) -
+                ((player1.getSix() * 6) + (player1.getFours() * 4));
+    }
+
 
 }

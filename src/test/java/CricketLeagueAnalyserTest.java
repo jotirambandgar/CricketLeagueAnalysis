@@ -3,7 +3,6 @@ import com.bridgelabz.exception.LeagueAnalyserException;
 import com.bridgelabz.model.IplCSVDao;
 import org.junit.Assert;
 import org.junit.Test;
-
 import java.util.List;
 
 public class CricketLeagueAnalyserTest {
@@ -46,7 +45,7 @@ public class CricketLeagueAnalyserTest {
         }catch (LeagueAnalyserException e){
 
             Assert.assertEquals(e.type,LeagueAnalyserException.ExceptionType.IPL_FILE_PROBLEM);
-//            Assert.assertEquals();
+
         }
     }
 
@@ -70,7 +69,7 @@ public class CricketLeagueAnalyserTest {
         leageAnalyser.loadMostRunData(IPL_MOST_RUNS_CSV_FILE_PATH);
         List<IplCSVDao> sortedData = leageAnalyser.sortBaseOnAverage();
         IplCSVDao csvDao = sortedData.get(0);
-        Assert.assertEquals("Ben Cutting",csvDao.getPlayerName());
+        Assert.assertEquals("MS Dhoni",csvDao.getPlayerName());
 
     }
 
@@ -80,7 +79,7 @@ public class CricketLeagueAnalyserTest {
         LeagueAnalyser leageAnalyser = new LeagueAnalyser();
         leageAnalyser.loadMostRunData(IPL_MOST_RUNS_CSV_FILE_PATH);
         List<IplCSVDao> sortedData = leageAnalyser.getTopStrikingRates();
-        Assert.assertEquals("Kedar Jadhav",sortedData.get(0).getPlayerName());
+        Assert.assertEquals("Ishant Sharma",sortedData.get(0).getPlayerName());
 
     }
 

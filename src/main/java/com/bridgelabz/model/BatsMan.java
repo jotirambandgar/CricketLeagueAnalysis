@@ -3,9 +3,11 @@ package com.bridgelabz.model;
 import com.opencsv.bean.CsvBindByName;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class BatsMan {
 
     @CsvBindByName(column = "POS", required = true)
@@ -27,16 +29,16 @@ public class BatsMan {
     private int runs;
 
     @CsvBindByName(column = "HS", required = true)
-    private String highScore;
+    private double highScore;
 
     @CsvBindByName(column = "Avg", required = true)
-    private String average;
+    private double average;
 
     @CsvBindByName(column = "BF", required = true)
     private int ballFaced;
 
     @CsvBindByName(column = "SR", required = true)
-    private String strikeRate;
+    private double strikeRate;
 
     @CsvBindByName(column = "100", required = true)
     private int hundred;
@@ -49,27 +51,6 @@ public class BatsMan {
 
     @CsvBindByName(column = "6s", required = true)
     private int six;
-
-    @Override
-    public String toString() {
-        return "BatsMan{" +
-                "pos=" + pos +
-                ", playerName='" + playerName + '\'' +
-                ", matches=" + matches +
-                ", innings=" + innings +
-                ", notOut=" + notOut +
-                ", runs=" + runs +
-                ", highScore='" + highScore + '\'' +
-                ", average='" + average + '\'' +
-                ", ballFaced=" + ballFaced +
-                ", strikeRate='" + strikeRate + '\'' +
-                ", hundred=" + hundred +
-                ", fifty=" + fifty +
-                ", fours=" + fours +
-                ", six=" + six +
-                '}';
-    }
-
 
 
 }
