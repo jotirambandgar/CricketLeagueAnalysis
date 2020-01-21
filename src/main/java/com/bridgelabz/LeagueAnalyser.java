@@ -22,6 +22,7 @@ public class LeagueAnalyser {
 
     private List<IplCSVDao> batsManData = new ArrayList<>();
 
+
     public int loadMostRunData(String csvFilePath) {
 
 
@@ -53,4 +54,11 @@ public class LeagueAnalyser {
          batsManData.sort(Comparator.comparing(IplCSVDao::getStrikeRate).reversed());
          return batsManData;
     }
+
+    public List sortBaseOnSixesAndFours() {
+       return batsManData.stream().sorted((player1, player2) ->
+            ((player2.getSix() * 6) + (player2.getFours() * 4)) -
+                    ((player1.getSix() * 6) + (player1.getFours() * 4))).collect(Collectors.toList());
+    }
+
 }

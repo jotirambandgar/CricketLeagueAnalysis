@@ -75,11 +75,23 @@ public class CricketLeagueAnalyserTest {
     }
 
     @Test
-    public void whenGivenIplMostRunsCsvFile_ShouldReturnTopStrickingRate() {
+    public void whenGivenIplMostRunsCsvData_ShouldReturnTopStrickingRates() {
 
         LeagueAnalyser leageAnalyser = new LeagueAnalyser();
         leageAnalyser.loadMostRunData(IPL_MOST_RUNS_CSV_FILE_PATH);
         List<IplCSVDao> sortedData = leageAnalyser.getTopStrikingRates();
         Assert.assertEquals("Kedar Jadhav",sortedData.get(0).getPlayerName());
+
     }
+
+    @Test
+    public void whenGivenIplMostRunsCsvData_ShouldSortDataBaseOnSixesAndFours() {
+
+        LeagueAnalyser leageAnalyser = new LeagueAnalyser();
+        leageAnalyser.loadMostRunData(IPL_MOST_RUNS_CSV_FILE_PATH);
+        List<IplCSVDao> sortedData =leageAnalyser.sortBaseOnSixesAndFours();
+        Assert.assertEquals("Andre Russell",sortedData.get(0).getPlayerName());
+
+    }
+
 }
