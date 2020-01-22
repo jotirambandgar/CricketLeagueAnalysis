@@ -69,5 +69,10 @@ public class IplCSVDao {
 
     }
 
+    public BatsMan getLeagueDto() {
+        return new BatsMan(pos, playerName, matches, innings, notOut,
+                runs, highScore,average, ballFaced,strikeRate, hundred, fifty,fours, six);
+    }
+
 
 }

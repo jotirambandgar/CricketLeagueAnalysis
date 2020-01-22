@@ -1,5 +1,6 @@
 import com.bridgelabz.LeagueAnalyser;
 import com.bridgelabz.exception.LeagueAnalyserException;
+import com.bridgelabz.model.BatsMan;
 import com.bridgelabz.model.IplCSVDao;
 import org.junit.Assert;
 import org.junit.Test;
@@ -67,9 +68,9 @@ public class CricketLeagueAnalyserTest {
 
         LeagueAnalyser leageAnalyser = new LeagueAnalyser();
         leageAnalyser.loadMostRunData(IPL_MOST_RUNS_CSV_FILE_PATH);
-        List<IplCSVDao> sortedData = leageAnalyser.sortBaseOnAverage();
-        IplCSVDao csvDao = sortedData.get(0);
-        Assert.assertEquals("MS Dhoni",csvDao.getPlayerName());
+        List<BatsMan> sortedData = leageAnalyser.sortBaseOnAverage();
+        BatsMan bestAvgBatsMan = sortedData.get(0);
+        Assert.assertEquals("MS Dhoni",bestAvgBatsMan.getPlayerName());
 
     }
 
@@ -78,7 +79,7 @@ public class CricketLeagueAnalyserTest {
 
         LeagueAnalyser leageAnalyser = new LeagueAnalyser();
         leageAnalyser.loadMostRunData(IPL_MOST_RUNS_CSV_FILE_PATH);
-        List<IplCSVDao> sortedData = leageAnalyser.getTopStrikingRates();
+        List<BatsMan> sortedData = leageAnalyser.getTopStrikingRates();
         Assert.assertEquals("Ishant Sharma",sortedData.get(0).getPlayerName());
 
     }
@@ -88,7 +89,7 @@ public class CricketLeagueAnalyserTest {
 
         LeagueAnalyser leageAnalyser = new LeagueAnalyser();
         leageAnalyser.loadMostRunData(IPL_MOST_RUNS_CSV_FILE_PATH);
-        List<IplCSVDao> sortedData =leageAnalyser.sortBaseOnSixesAndFours();
+        List<BatsMan> sortedData = leageAnalyser.sortBaseOnSixesAndFours();
         System.out.println("sixes and four");
         sortedData.forEach(System.out::println);
         Assert.assertEquals("Andre Russell",sortedData.get(0).getPlayerName());
@@ -100,7 +101,7 @@ public class CricketLeagueAnalyserTest {
 
         LeagueAnalyser leageAnalyser = new LeagueAnalyser();
         leageAnalyser.loadMostRunData(IPL_MOST_RUNS_CSV_FILE_PATH);
-        List<IplCSVDao> list = leageAnalyser.sortByStrickingSixAndFour();
+        List<BatsMan> list = leageAnalyser.sortByStrickingSixAndFour();
         String playerBestStrikingSixFour = list.get(0).getPlayerName();
         Assert.assertEquals("Andre Russell",playerBestStrikingSixFour);
 

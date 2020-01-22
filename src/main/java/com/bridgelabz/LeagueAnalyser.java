@@ -25,7 +25,7 @@ public class LeagueAnalyser {
 
 
 
-    private enum ComparatorType{
+    private enum ComparatorStatus {
         AVERAGE,
         STRIKERATE,
         SIXESANDFOUR,
@@ -53,58 +53,60 @@ public class LeagueAnalyser {
 
     }
 
-    public List sortBaseOnAverage() {
-       getSortedData(ComparatorType.AVERAGE);
-       return batsManData;
+    public List<BatsMan> sortBaseOnAverage() {
+        getSortedData(ComparatorStatus.AVERAGE);
+        return getDtoList();
 
     }
 
-    public List<IplCSVDao> getTopStrikingRates() {
-        System.out.println("in strike rate1");
-        getSortedData(ComparatorType.STRIKERATE);
-        return batsManData;
+    public List<BatsMan> getTopStrikingRates() {
+
+        getSortedData(ComparatorStatus.STRIKERATE);
+        return getDtoList();
 
     }
 
-    public List<IplCSVDao> sortBaseOnSixesAndFours() {
-        getSortedData(ComparatorType.SIXESANDFOUR);
-        return batsManData;
+    public List<BatsMan> sortBaseOnSixesAndFours() {
+        getSortedData(ComparatorStatus.SIXESANDFOUR);
+        return getDtoList();
     }
 
     public List sortByStrickingSixAndFour() {
-       // batsManData.sort(this.getComparator(ComparatorType.STRIKERATE).ag);
-        getSortedData(ComparatorType.STRIKESIXFOUR);
-        batsManData.forEach(System.out::println);
-        return batsManData;
+        getSortedData(ComparatorStatus.STRIKESIXFOUR);
+        return getDtoList();
     }
 
-    public void getSortedData(ComparatorType comparatorType) {
+    public List getDtoList() {
+        return batsManData.stream().map(iplCSVDao -> iplCSVDao.getLeagueDto()).collect(Collectors.toList());
+    }
+
+    public void getSortedData(ComparatorStatus comparatorType) {
 
          batsManData.sort(this.getComparator(comparatorType));
 
     }
 
 
-    public Comparator<IplCSVDao> getComparator(ComparatorType comparatorType){
-        if(comparatorType.equals(ComparatorType.AVERAGE)) {
+    public Comparator<IplCSVDao> getComparator(ComparatorStatus comparatorType){
+
+        if(comparatorType.equals(ComparatorStatus.AVERAGE)) {
 
             return (IplCSVDao player1,IplCSVDao player2) -> (int) (player2.getAverage()-( player1.getAverage()));
         }
 
-        if(comparatorType.equals(ComparatorType.STRIKERATE)) {
+        if(comparatorType.equals(ComparatorStatus.STRIKERATE)) {
 
             return (IplCSVDao player1, IplCSVDao player2) -> (int) (player2.getStrikeRate() - (player1.getStrikeRate()));
         }
 
-        if(comparatorType.equals(ComparatorType.SIXESANDFOUR))
+        if(comparatorType.equals(ComparatorStatus.SIXESANDFOUR))
             return (IplCSVDao player1,IplCSVDao player2) ->
                 ((player2.getSix() * 6) + (player2.getFours() * 4)) -
                 ((player1.getSix() * 6) + (player1.getFours() * 4));
 
-        if(comparatorType.equals(ComparatorType.STRIKESIXFOUR)) {
-            return getComparator(ComparatorType.SIXESANDFOUR).
-                    thenComparing(getComparator(ComparatorType.STRIKERATE))
-                   ;
+        if(comparatorType.equals(ComparatorStatus.STRIKESIXFOUR)) {
+            return getComparator(ComparatorStatus.SIXESANDFOUR).
+                    thenComparing(getComparator(ComparatorStatus.STRIKERATE));
         }
 
         return null;
