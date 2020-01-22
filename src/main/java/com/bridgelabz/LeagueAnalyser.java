@@ -11,24 +11,25 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 public class LeagueAnalyser {
 
-    private List<IplCSVDao> batsManData = new ArrayList<>();
+    private List<IplCSVDao> batsManData;
 
+    public LeagueAnalyser() {
+    batsManData=new ArrayList<>();
+    }
 
 
 
     private enum ComparatorType{
         AVERAGE,
         STRIKERATE,
-        SIXESANDFOUR
+        SIXESANDFOUR,
+         STRIKESIXFOUR ;
     }
 
     public int loadMostRunData(String csvFilePath) {
@@ -69,6 +70,14 @@ public class LeagueAnalyser {
         getSortedData(ComparatorType.SIXESANDFOUR);
         return batsManData;
     }
+
+    public List sortByStrickingSixAndFour() {
+       // batsManData.sort(this.getComparator(ComparatorType.STRIKERATE).ag);
+        getSortedData(ComparatorType.STRIKESIXFOUR);
+        batsManData.forEach(System.out::println);
+        return batsManData;
+    }
+
     public void getSortedData(ComparatorType comparatorType) {
 
          batsManData.sort(this.getComparator(comparatorType));
@@ -80,15 +89,25 @@ public class LeagueAnalyser {
         if(comparatorType.equals(ComparatorType.AVERAGE)) {
 
             return (IplCSVDao player1,IplCSVDao player2) -> (int) (player2.getAverage()-( player1.getAverage()));
-            }
+        }
+
         if(comparatorType.equals(ComparatorType.STRIKERATE)) {
 
             return (IplCSVDao player1, IplCSVDao player2) -> (int) (player2.getStrikeRate() - (player1.getStrikeRate()));
         }
 
+        if(comparatorType.equals(ComparatorType.SIXESANDFOUR))
             return (IplCSVDao player1,IplCSVDao player2) ->
                 ((player2.getSix() * 6) + (player2.getFours() * 4)) -
                 ((player1.getSix() * 6) + (player1.getFours() * 4));
+
+        if(comparatorType.equals(ComparatorType.STRIKESIXFOUR)) {
+            return getComparator(ComparatorType.SIXESANDFOUR).
+                    thenComparing(getComparator(ComparatorType.STRIKERATE))
+                   ;
+        }
+
+        return null;
     }
 
 

@@ -84,13 +84,25 @@ public class CricketLeagueAnalyserTest {
     }
 
     @Test
-    public void whenGivenIplMostRunsCsvData_ShouldSortDataBaseOnSixesAndFours() {
+    public void whenGivenIplMostRunsCsvData_ShouldSortDataBasedOnSixesAndFours() {
 
         LeagueAnalyser leageAnalyser = new LeagueAnalyser();
         leageAnalyser.loadMostRunData(IPL_MOST_RUNS_CSV_FILE_PATH);
         List<IplCSVDao> sortedData =leageAnalyser.sortBaseOnSixesAndFours();
+        System.out.println("sixes and four");
+        sortedData.forEach(System.out::println);
         Assert.assertEquals("Andre Russell",sortedData.get(0).getPlayerName());
 
     }
 
+    @Test
+    public void whenGivenIplMostRunsCsvData_ShouldSortDataByStrikingRateAndSixesAndFour() {
+
+        LeagueAnalyser leageAnalyser = new LeagueAnalyser();
+        leageAnalyser.loadMostRunData(IPL_MOST_RUNS_CSV_FILE_PATH);
+        List<IplCSVDao> list = leageAnalyser.sortByStrickingSixAndFour();
+        String playerBestStrikingSixFour = list.get(0).getPlayerName();
+        Assert.assertEquals("Andre Russell",playerBestStrikingSixFour);
+
+    }
 }
