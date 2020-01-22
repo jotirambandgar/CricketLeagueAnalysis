@@ -25,11 +25,13 @@ public class LeagueAnalyser {
 
 
 
+
     private enum ComparatorStatus {
         AVERAGE,
         STRIKERATE,
         SIXESANDFOUR,
-         STRIKESIXFOUR ;
+         STRIKESIXFOUR ,
+         AVERAGESTRIKERATE ;
     }
 
     public int loadMostRunData(String csvFilePath) {
@@ -80,6 +82,11 @@ public class LeagueAnalyser {
         return batsManData.stream().map(iplCSVDao -> iplCSVDao.getLeagueDto()).collect(Collectors.toList());
     }
 
+    public List<BatsMan> sortByAverageAndStrikingRate() {
+        getSortedData(ComparatorStatus.AVERAGESTRIKERATE);
+        return getDtoList();
+    }
+
     public void getSortedData(ComparatorStatus comparatorType) {
 
          batsManData.sort(this.getComparator(comparatorType));
@@ -106,6 +113,10 @@ public class LeagueAnalyser {
 
         if(comparatorType.equals(ComparatorStatus.STRIKESIXFOUR)) {
             return getComparator(ComparatorStatus.SIXESANDFOUR).
+                    thenComparing(getComparator(ComparatorStatus.STRIKERATE));
+        }
+        if(comparatorType.equals(ComparatorStatus.AVERAGESTRIKERATE)) {
+            return getComparator(ComparatorStatus.AVERAGE).
                     thenComparing(getComparator(ComparatorStatus.STRIKERATE));
         }
 

@@ -69,6 +69,7 @@ public class CricketLeagueAnalyserTest {
         LeagueAnalyser leageAnalyser = new LeagueAnalyser();
         leageAnalyser.loadMostRunData(IPL_MOST_RUNS_CSV_FILE_PATH);
         List<BatsMan> sortedData = leageAnalyser.sortBaseOnAverage();
+//        sortedData.forEach(System.out::println);
         BatsMan bestAvgBatsMan = sortedData.get(0);
         Assert.assertEquals("MS Dhoni",bestAvgBatsMan.getPlayerName());
 
@@ -80,6 +81,7 @@ public class CricketLeagueAnalyserTest {
         LeagueAnalyser leageAnalyser = new LeagueAnalyser();
         leageAnalyser.loadMostRunData(IPL_MOST_RUNS_CSV_FILE_PATH);
         List<BatsMan> sortedData = leageAnalyser.getTopStrikingRates();
+//        sortedData.forEach(System.out::println);
         Assert.assertEquals("Ishant Sharma",sortedData.get(0).getPlayerName());
 
     }
@@ -90,8 +92,6 @@ public class CricketLeagueAnalyserTest {
         LeagueAnalyser leageAnalyser = new LeagueAnalyser();
         leageAnalyser.loadMostRunData(IPL_MOST_RUNS_CSV_FILE_PATH);
         List<BatsMan> sortedData = leageAnalyser.sortBaseOnSixesAndFours();
-        System.out.println("sixes and four");
-        sortedData.forEach(System.out::println);
         Assert.assertEquals("Andre Russell",sortedData.get(0).getPlayerName());
 
     }
@@ -101,9 +101,19 @@ public class CricketLeagueAnalyserTest {
 
         LeagueAnalyser leageAnalyser = new LeagueAnalyser();
         leageAnalyser.loadMostRunData(IPL_MOST_RUNS_CSV_FILE_PATH);
-        List<BatsMan> list = leageAnalyser.sortByStrickingSixAndFour();
-        String playerBestStrikingSixFour = list.get(0).getPlayerName();
+        List<BatsMan> batsManList = leageAnalyser.sortByStrickingSixAndFour();
+//        batsManList.forEach(System.out::println);
+        String playerBestStrikingSixFour = batsManList.get(0).getPlayerName();
         Assert.assertEquals("Andre Russell",playerBestStrikingSixFour);
+
+    }
+
+    @Test
+    public void whenGivenIplMostRunsCsvData_ShouldSortDataByAverageAndStrikingRate() {
+        LeagueAnalyser leageAnalyser = new LeagueAnalyser();
+        leageAnalyser.loadMostRunData(IPL_MOST_RUNS_CSV_FILE_PATH);
+        List<BatsMan> batsManList = leageAnalyser.sortByAverageAndStrikingRate();
+        Assert.assertEquals("MS Dhoni",batsManList.get(0).getPlayerName());
 
     }
 }
