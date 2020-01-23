@@ -25,13 +25,15 @@ public class LeagueAnalyser {
 
 
     public enum ComparatorStatus {
-        AVERAGE,
+        BATTINGAVERAGE,
         STRIKERATE,
         SIXESANDFOUR,
         STRIKESIXFOUR,
         AVERAGESTRIKERATE ,
         AVERAGERUN ,
-         MAXRUN ;
+        MAXRUN,
+        BOWLINGAVERAGE
+
     }
 
     public static enum CsvFileType{
@@ -72,9 +74,9 @@ public class LeagueAnalyser {
 
     }
 
-    public List<BatsMan> sortBaseOnAverage() {
+    public List sortBaseOnAverage() {
 
-        getSortedData(ComparatorStatus.AVERAGE);
+        getSortedData(ComparatorStatus.BATTINGAVERAGE);
         return getDtoList(CsvFileType.BATSMAN);
 
     }
@@ -100,6 +102,7 @@ public class LeagueAnalyser {
 
     }
 
+
     public List<BatsMan> sortByRunsAndAverage() {
         getSortedData(ComparatorStatus.AVERAGERUN);
         return getDtoList(CsvFileType.BATSMAN);
@@ -113,11 +116,14 @@ public class LeagueAnalyser {
 
     }
 
+
     public List<Bowler> SortByBowlingAvg() {
 
-        getSortedData(ComparatorStatus.AVERAGE);
+        getSortedData(ComparatorStatus.BOWLINGAVERAGE);
         return getDtoList(CsvFileType.BOWLER);
+
     }
+
 
     public List getDtoList(CsvFileType csvFileType) {
 
@@ -128,7 +134,9 @@ public class LeagueAnalyser {
 
 
     public void getSortedData(ComparatorStatus comparatorType) {
+
          batsManData.sort(ComparatorProvider.getComparator(comparatorType));
+
     }
 
 

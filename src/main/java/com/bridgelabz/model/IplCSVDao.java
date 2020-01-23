@@ -26,7 +26,9 @@ public class IplCSVDao {
 
     private double highScore;
 
-    private double average;
+    private double battingverage;
+
+    private double bowlingAverage;
 
     private int ballFaced;
 
@@ -61,7 +63,7 @@ public class IplCSVDao {
         this.notOut = batsMan.getNotOut();
         this.runs = batsMan.getRuns();
         this.highScore = batsMan.getHighScore();
-        this.average = batsMan.getAverage();
+        this.battingverage = batsMan.getAverage();
         this.ballFaced = batsMan.getBallFaced();
         this.strikeRate = batsMan.getStrikeRate();
         this.hundred = batsMan.getHundred();
@@ -78,7 +80,7 @@ public class IplCSVDao {
         this.matches = bowler.getMatches();
         this.innings = bowler.getInnings();
         this.runs = bowler.getRuns();
-        this.average = bowler.getAverage();
+        this.bowlingAverage = bowler.getAverage();
         this.strikeRate = bowler.getStrikeRate();
         this.over = bowler.getOvers();
         this.wickets = bowler.getWickets();
@@ -93,12 +95,11 @@ public class IplCSVDao {
 
         if(csvFileType.equals(LeagueAnalyser.CsvFileType.BATSMAN)) {
             return new BatsMan(pos, playerName, matches, innings, notOut,
-                    runs, highScore,average, ballFaced,strikeRate, hundred, fifty,fours, six);
+                    runs, highScore,battingverage, ballFaced,strikeRate, hundred, fifty,fours, six);
         }
         return new Bowler(pos,  playerName,  matches,  innings, over,  runs,
-         wickets, average, bbi,
-        strikeRate, economeyRate,
-                fourWickete,  fiveWicket);
+                        wickets, bowlingAverage, bbi, strikeRate, economeyRate,
+                            fourWickete, fiveWicket);
 
     }
 

@@ -111,6 +111,7 @@ public class CricketLeagueAnalyserTest {
         leageAnalyser.loadCSVData(LeagueAnalyser.CsvFileType.BATSMAN,
                                     IPL_MOST_RUNS_CSV_FILE_PATH);
         List<BatsMan> batsManList = leageAnalyser.sortByStrickingSixAndFour();
+
         String playerBestStrikingSixFour = batsManList.get(0).getPlayerName();
         Assert.assertEquals("Andre Russell",playerBestStrikingSixFour);
 
@@ -147,11 +148,12 @@ public class CricketLeagueAnalyserTest {
 
     @Test
     public void whenGivenIplMostWicketCsvData_ShouldReturnSortedDataByBowlingAvg() {
+
         LeagueAnalyser leageAnalyser = new LeagueAnalyser();
         leageAnalyser.loadCSVData(LeagueAnalyser.CsvFileType.BOWLER,
-                IPL_MOST_WICKET_CSV_FILE_PATH);
+                                        IPL_MOST_WICKET_CSV_FILE_PATH);
         List<Bowler> bowlersData = leageAnalyser.SortByBowlingAvg();
-        Assert.assertEquals(1,1);
+        Assert.assertEquals("Krishnappa Gowtham",bowlersData.get(0).getPlayerName());
 
     }
 

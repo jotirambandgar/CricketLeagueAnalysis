@@ -6,12 +6,12 @@ import java.util.Comparator;
 
 public class ComparatorProvider {
 
-    public static Comparator<IplCSVDao> getComparator(LeagueAnalyser.ComparatorStatus comparatorStatus){
+    public static Comparator<IplCSVDao>  getComparator(LeagueAnalyser.ComparatorStatus comparatorStatus){
 
-        if(comparatorStatus.equals(LeagueAnalyser.ComparatorStatus.AVERAGE)) {
+        if(comparatorStatus.equals(LeagueAnalyser.ComparatorStatus.BATTINGAVERAGE)) {
 
-            return (IplCSVDao player1,IplCSVDao player2) -> (int) (player2.getAverage()-
-                    ( player1.getAverage()));
+            return (IplCSVDao player1,IplCSVDao player2) -> (int) (player2.getBattingverage()-
+                    ( player1.getBattingverage()));
         }
 
         if(comparatorStatus.equals(LeagueAnalyser.ComparatorStatus.STRIKERATE)) {
@@ -31,7 +31,7 @@ public class ComparatorProvider {
         }
 
         if(comparatorStatus.equals(LeagueAnalyser.ComparatorStatus.AVERAGESTRIKERATE)) {
-            return getComparator(LeagueAnalyser.ComparatorStatus.AVERAGE).
+            return getComparator(LeagueAnalyser.ComparatorStatus.BATTINGAVERAGE).
                     thenComparing(getComparator(LeagueAnalyser.ComparatorStatus.STRIKERATE));
         }
 
@@ -40,9 +40,16 @@ public class ComparatorProvider {
         }
 
         if(comparatorStatus.equals(LeagueAnalyser.ComparatorStatus.AVERAGERUN)) {
-            return getComparator(LeagueAnalyser.ComparatorStatus.MAXRUN).thenComparing(getComparator(LeagueAnalyser.ComparatorStatus.AVERAGE));
-        }
 
+            return getComparator(LeagueAnalyser.ComparatorStatus.MAXRUN)
+                    .thenComparing(getComparator(LeagueAnalyser.ComparatorStatus.BATTINGAVERAGE));
+
+        }
+        if(comparatorStatus.equals(LeagueAnalyser.ComparatorStatus.BOWLINGAVERAGE)) {
+
+            return ((IplCSVDao player1,IplCSVDao player2) -> (int) (player2.getBowlingAverage() -
+                        player1.getBowlingAverage()));
+        }
         return null;
     }
 }
