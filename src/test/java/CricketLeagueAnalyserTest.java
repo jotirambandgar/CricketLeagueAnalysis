@@ -1,7 +1,6 @@
 import com.bridgelabz.LeagueAnalyser;
 import com.bridgelabz.exception.LeagueAnalyserException;
 import com.bridgelabz.model.BatsMan;
-import com.bridgelabz.model.IplCSVDao;
 import org.junit.Assert;
 import org.junit.Test;
 import java.util.List;
@@ -15,12 +14,14 @@ public class CricketLeagueAnalyserTest {
     private String WRONG_HEADER_CSV_FILE_PATH = "./src/test/resources/WrongHeader.csv";
 
     private String WRONG_DELIMITER_CSV_FILE_PATH= "./src/test/resources/WrongIplDelimiter.csv";
+    private String IPL_MOST_WICKET_CSV_FILE_PATH="./src/test/resources/wicket.csv";
 
     @Test
     public void whenGivenCSVFileRecordOfMostRuns_ShouldReturnProperData() {
 
         LeagueAnalyser leageAnalyser = new LeagueAnalyser();
-        int noOFRecords = leageAnalyser.loadMostRunData(IPL_MOST_RUNS_CSV_FILE_PATH);
+        int noOFRecords = leageAnalyser.loadCSVData(LeagueAnalyser.CsvFileType.BATSMAN,
+                                                        IPL_MOST_RUNS_CSV_FILE_PATH);
         Assert.assertEquals(100,noOFRecords);
     }
 
@@ -29,7 +30,8 @@ public class CricketLeagueAnalyserTest {
         try {
 
             LeagueAnalyser leageAnalyser = new LeagueAnalyser();
-            int noOFRecords = leageAnalyser.loadMostRunData(WRONG_IPL_MOST_RUNS_CSV_FILE_PATH);
+            int noOFRecords = leageAnalyser.loadCSVData(LeagueAnalyser.CsvFileType.BATSMAN,
+                                                        WRONG_IPL_MOST_RUNS_CSV_FILE_PATH);
 
         }catch (LeagueAnalyserException e) {
            Assert.assertEquals(e.type,LeagueAnalyserException.ExceptionType.NO_CSV_FILE);
@@ -41,7 +43,7 @@ public class CricketLeagueAnalyserTest {
         try {
 
             LeagueAnalyser leageAnalyser = new LeagueAnalyser();
-            int noOFRecords = leageAnalyser.loadMostRunData(WRONG_HEADER_CSV_FILE_PATH);
+            int noOFRecords = leageAnalyser.loadCSVData(LeagueAnalyser.CsvFileType.BATSMAN,WRONG_HEADER_CSV_FILE_PATH);
 
         }catch (LeagueAnalyserException e){
 
@@ -55,7 +57,8 @@ public class CricketLeagueAnalyserTest {
         try {
 
             LeagueAnalyser leageAnalyser = new LeagueAnalyser();
-            int noOFRecords = leageAnalyser.loadMostRunData(WRONG_DELIMITER_CSV_FILE_PATH);
+            int noOFRecords = leageAnalyser.loadCSVData(LeagueAnalyser.CsvFileType.
+                                                        BATSMAN,WRONG_DELIMITER_CSV_FILE_PATH);
 
         }catch (LeagueAnalyserException e){
 
@@ -67,9 +70,9 @@ public class CricketLeagueAnalyserTest {
     public void whenGivenIplMostRunsCSVFile_ShouldReturnSortedDataBasedOnAverage() {
 
         LeagueAnalyser leageAnalyser = new LeagueAnalyser();
-        leageAnalyser.loadMostRunData(IPL_MOST_RUNS_CSV_FILE_PATH);
+        leageAnalyser.loadCSVData(LeagueAnalyser.CsvFileType.BATSMAN,
+                                            IPL_MOST_RUNS_CSV_FILE_PATH);
         List<BatsMan> sortedData = leageAnalyser.sortBaseOnAverage();
-//        sortedData.forEach(System.out::println);
         BatsMan bestAvgBatsMan = sortedData.get(0);
         Assert.assertEquals("MS Dhoni",bestAvgBatsMan.getPlayerName());
 
@@ -79,7 +82,8 @@ public class CricketLeagueAnalyserTest {
     public void whenGivenIplMostRunsCsvData_ShouldReturnTopStrickingRates() {
 
         LeagueAnalyser leageAnalyser = new LeagueAnalyser();
-        leageAnalyser.loadMostRunData(IPL_MOST_RUNS_CSV_FILE_PATH);
+        leageAnalyser.loadCSVData(LeagueAnalyser.CsvFileType.BATSMAN,
+                                                    IPL_MOST_RUNS_CSV_FILE_PATH);
         List<BatsMan> sortedData = leageAnalyser.getTopStrikingRates();
 //        sortedData.forEach(System.out::println);
         Assert.assertEquals("Ishant Sharma",sortedData.get(0).getPlayerName());
@@ -90,7 +94,7 @@ public class CricketLeagueAnalyserTest {
     public void whenGivenIplMostRunsCsvData_ShouldSortDataBasedOnSixesAndFours() {
 
         LeagueAnalyser leageAnalyser = new LeagueAnalyser();
-        leageAnalyser.loadMostRunData(IPL_MOST_RUNS_CSV_FILE_PATH);
+        leageAnalyser.loadCSVData(LeagueAnalyser.CsvFileType.BATSMAN,IPL_MOST_RUNS_CSV_FILE_PATH);
         List<BatsMan> sortedData = leageAnalyser.sortBaseOnSixesAndFours();
         Assert.assertEquals("Andre Russell",sortedData.get(0).getPlayerName());
 
@@ -100,9 +104,8 @@ public class CricketLeagueAnalyserTest {
     public void whenGivenIplMostRunsCsvData_ShouldSortDataByStrikingRateAndSixesAndFour() {
 
         LeagueAnalyser leageAnalyser = new LeagueAnalyser();
-        leageAnalyser.loadMostRunData(IPL_MOST_RUNS_CSV_FILE_PATH);
+        leageAnalyser.loadCSVData(LeagueAnalyser.CsvFileType.BATSMAN,IPL_MOST_RUNS_CSV_FILE_PATH);
         List<BatsMan> batsManList = leageAnalyser.sortByStrickingSixAndFour();
-//        batsManList.forEach(System.out::println);
         String playerBestStrikingSixFour = batsManList.get(0).getPlayerName();
         Assert.assertEquals("Andre Russell",playerBestStrikingSixFour);
 
@@ -110,10 +113,30 @@ public class CricketLeagueAnalyserTest {
 
     @Test
     public void whenGivenIplMostRunsCsvData_ShouldSortDataByAverageAndStrikingRate() {
+
         LeagueAnalyser leageAnalyser = new LeagueAnalyser();
-        leageAnalyser.loadMostRunData(IPL_MOST_RUNS_CSV_FILE_PATH);
+        leageAnalyser.loadCSVData(LeagueAnalyser.CsvFileType.BATSMAN,IPL_MOST_RUNS_CSV_FILE_PATH);
         List<BatsMan> batsManList = leageAnalyser.sortByAverageAndStrikingRate();
         Assert.assertEquals("MS Dhoni",batsManList.get(0).getPlayerName());
 
+    }
+
+    @Test
+    public void whenGivenIplMostRunsCsvData_SholdSortDataBaseOnRunsAndAverage() {
+
+        LeagueAnalyser leageAnalyser = new LeagueAnalyser();
+        leageAnalyser.loadCSVData(LeagueAnalyser.CsvFileType.BATSMAN,IPL_MOST_RUNS_CSV_FILE_PATH);
+        List<BatsMan> batsManList = leageAnalyser.sortByRunsAndAverage();
+        Assert.assertEquals("David Warner",batsManList.get(0).getPlayerName());
+
+    }
+
+    @Test
+    public void whenGivenIplMostWicketCsvData_ShouldReturnProperData() {
+
+        LeagueAnalyser leageAnalyser = new LeagueAnalyser();
+        int size = leageAnalyser.loadCSVData(LeagueAnalyser.CsvFileType.BOWLER,
+                                                    IPL_MOST_WICKET_CSV_FILE_PATH);
+        Assert.assertEquals(99,size);
     }
 }
