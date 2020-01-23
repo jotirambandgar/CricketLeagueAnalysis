@@ -1,5 +1,6 @@
 package com.bridgelabz.model;
 
+import com.bridgelabz.LeagueAnalyser;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -41,7 +42,7 @@ public class IplCSVDao {
 
     private  double over;
 
-    private double wickets;
+    private int wickets;
 
     private int bbi;
 
@@ -88,9 +89,17 @@ public class IplCSVDao {
 
     }
 
-    public BatsMan getLeagueDto() {
-        return new BatsMan(pos, playerName, matches, innings, notOut,
-                runs, highScore,average, ballFaced,strikeRate, hundred, fifty,fours, six);
+    public Object getLeagueDto(LeagueAnalyser.CsvFileType csvFileType) {
+
+        if(csvFileType.equals(LeagueAnalyser.CsvFileType.BATSMAN)) {
+            return new BatsMan(pos, playerName, matches, innings, notOut,
+                    runs, highScore,average, ballFaced,strikeRate, hundred, fifty,fours, six);
+        }
+        return new Bowler(pos,  playerName,  matches,  innings, over,  runs,
+         wickets, average, bbi,
+        strikeRate, economeyRate,
+                fourWickete,  fiveWicket);
+
     }
 
 

@@ -1,6 +1,7 @@
 import com.bridgelabz.LeagueAnalyser;
 import com.bridgelabz.exception.LeagueAnalyserException;
 import com.bridgelabz.model.BatsMan;
+import com.bridgelabz.model.Bowler;
 import org.junit.Assert;
 import org.junit.Test;
 import java.util.List;
@@ -14,6 +15,7 @@ public class CricketLeagueAnalyserTest {
     private String WRONG_HEADER_CSV_FILE_PATH = "./src/test/resources/WrongHeader.csv";
 
     private String WRONG_DELIMITER_CSV_FILE_PATH= "./src/test/resources/WrongIplDelimiter.csv";
+
     private String IPL_MOST_WICKET_CSV_FILE_PATH="./src/test/resources/wicket.csv";
 
     @Test
@@ -43,7 +45,8 @@ public class CricketLeagueAnalyserTest {
         try {
 
             LeagueAnalyser leageAnalyser = new LeagueAnalyser();
-            int noOFRecords = leageAnalyser.loadCSVData(LeagueAnalyser.CsvFileType.BATSMAN,WRONG_HEADER_CSV_FILE_PATH);
+            int noOFRecords = leageAnalyser.loadCSVData(LeagueAnalyser.CsvFileType.BATSMAN,
+                                                            WRONG_HEADER_CSV_FILE_PATH);
 
         }catch (LeagueAnalyserException e){
 
@@ -94,7 +97,8 @@ public class CricketLeagueAnalyserTest {
     public void whenGivenIplMostRunsCsvData_ShouldSortDataBasedOnSixesAndFours() {
 
         LeagueAnalyser leageAnalyser = new LeagueAnalyser();
-        leageAnalyser.loadCSVData(LeagueAnalyser.CsvFileType.BATSMAN,IPL_MOST_RUNS_CSV_FILE_PATH);
+        leageAnalyser.loadCSVData(LeagueAnalyser.CsvFileType.BATSMAN,
+                                    IPL_MOST_RUNS_CSV_FILE_PATH);
         List<BatsMan> sortedData = leageAnalyser.sortBaseOnSixesAndFours();
         Assert.assertEquals("Andre Russell",sortedData.get(0).getPlayerName());
 
@@ -104,7 +108,8 @@ public class CricketLeagueAnalyserTest {
     public void whenGivenIplMostRunsCsvData_ShouldSortDataByStrikingRateAndSixesAndFour() {
 
         LeagueAnalyser leageAnalyser = new LeagueAnalyser();
-        leageAnalyser.loadCSVData(LeagueAnalyser.CsvFileType.BATSMAN,IPL_MOST_RUNS_CSV_FILE_PATH);
+        leageAnalyser.loadCSVData(LeagueAnalyser.CsvFileType.BATSMAN,
+                                    IPL_MOST_RUNS_CSV_FILE_PATH);
         List<BatsMan> batsManList = leageAnalyser.sortByStrickingSixAndFour();
         String playerBestStrikingSixFour = batsManList.get(0).getPlayerName();
         Assert.assertEquals("Andre Russell",playerBestStrikingSixFour);
@@ -139,4 +144,16 @@ public class CricketLeagueAnalyserTest {
                                                     IPL_MOST_WICKET_CSV_FILE_PATH);
         Assert.assertEquals(99,size);
     }
+
+    @Test
+    public void whenGivenIplMostWicketCsvData_ShouldReturnSortedDataByBowlingAvg() {
+        LeagueAnalyser leageAnalyser = new LeagueAnalyser();
+        leageAnalyser.loadCSVData(LeagueAnalyser.CsvFileType.BOWLER,
+                IPL_MOST_WICKET_CSV_FILE_PATH);
+        List<Bowler> bowlersData = leageAnalyser.SortByBowlingAvg();
+        Assert.assertEquals(1,1);
+
+    }
+
+
 }

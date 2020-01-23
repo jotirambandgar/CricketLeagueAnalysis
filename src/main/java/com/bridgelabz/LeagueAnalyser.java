@@ -7,7 +7,6 @@ import com.bridgelabz.exception.LeagueAnalyserException;
 import com.bridgelabz.model.BatsMan;
 import com.bridgelabz.model.Bowler;
 import com.bridgelabz.model.IplCSVDao;
-
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
@@ -25,8 +24,6 @@ public class LeagueAnalyser {
     }
 
 
-
-
     public enum ComparatorStatus {
         AVERAGE,
         STRIKERATE,
@@ -37,7 +34,7 @@ public class LeagueAnalyser {
          MAXRUN ;
     }
 
-    public enum CsvFileType{
+    public static enum CsvFileType{
         BATSMAN,
         BOWLER
     }
@@ -64,7 +61,9 @@ public class LeagueAnalyser {
 
 
         } catch (IOException e) {
+
            throw new LeagueAnalyserException(e.getMessage(),LeagueAnalyserException.ExceptionType.NO_CSV_FILE);
+
         } catch (CSVBuilderException builderException){
             throw new LeagueAnalyserException(builderException.getMessage() ,
                                     LeagueAnalyserException.ExceptionType.IPL_FILE_PROBLEM);
@@ -74,48 +73,63 @@ public class LeagueAnalyser {
     }
 
     public List<BatsMan> sortBaseOnAverage() {
+
         getSortedData(ComparatorStatus.AVERAGE);
-        return getDtoList();
+        return getDtoList(CsvFileType.BATSMAN);
 
     }
 
     public List<BatsMan> getTopStrikingRates() {
 
         getSortedData(ComparatorStatus.STRIKERATE);
-        return getDtoList();
+        return getDtoList(CsvFileType.BATSMAN);
 
     }
 
     public List<BatsMan> sortBaseOnSixesAndFours() {
+
         getSortedData(ComparatorStatus.SIXESANDFOUR);
-        return getDtoList();
+        return getDtoList(CsvFileType.BATSMAN);
+
     }
 
     public List sortByStrickingSixAndFour() {
+
         getSortedData(ComparatorStatus.STRIKESIXFOUR);
-        return getDtoList();
-    }
+        return getDtoList(CsvFileType.BATSMAN);
 
-    public List getDtoList() {
-        return batsManData.stream().map(iplCSVDao -> iplCSVDao.getLeagueDto()).collect(Collectors.toList());
-    }
-
-    public List<BatsMan> sortByAverageAndStrikingRate() {
-        getSortedData(ComparatorStatus.AVERAGESTRIKERATE);
-        return getDtoList();
     }
 
     public List<BatsMan> sortByRunsAndAverage() {
         getSortedData(ComparatorStatus.AVERAGERUN);
-        return getDtoList();
+        return getDtoList(CsvFileType.BATSMAN);
     }
+
+
+    public List<BatsMan> sortByAverageAndStrikingRate() {
+
+        getSortedData(ComparatorStatus.AVERAGESTRIKERATE);
+        return getDtoList(CsvFileType.BATSMAN);
+
+    }
+
+    public List<Bowler> SortByBowlingAvg() {
+
+        getSortedData(ComparatorStatus.AVERAGE);
+        return getDtoList(CsvFileType.BOWLER);
+    }
+
+    public List getDtoList(CsvFileType csvFileType) {
+
+        return batsManData.stream().map(iplCSVDao -> iplCSVDao.getLeagueDto(csvFileType))
+                .collect(Collectors.toList());
+
+    }
+
 
     public void getSortedData(ComparatorStatus comparatorType) {
-
          batsManData.sort(ComparatorProvider.getComparator(comparatorType));
-
     }
-
 
 
 
