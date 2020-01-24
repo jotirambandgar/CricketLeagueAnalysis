@@ -1,7 +1,6 @@
 package com.bridgelabz;
 
 import com.bridgelabz.model.IplCSVDao;
-
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,10 +8,10 @@ import java.util.Map;
 public class ComparatorProviderImpl implements IComparatorProvider {
 
 
-        Map<LeagueAnalyser.ComparatorStatus, Comparator<IplCSVDao>> comparators = new HashMap<>();
+        Map<LeagueAnalyser.ComparatorStatus, Comparator<IplCSVDao>> comparators = null;
 
     public ComparatorProviderImpl() {
-
+        comparators = new HashMap<>();
         comparators.put(LeagueAnalyser.ComparatorStatus.BATTINGAVERAGE, (IplCSVDao player1, IplCSVDao player2) -> (int) (player2.getBattingverage() -
                 (player1.getBattingverage())));
 
@@ -44,10 +43,15 @@ public class ComparatorProviderImpl implements IComparatorProvider {
 
         comparators.put(LeagueAnalyser.ComparatorStatus.BOWLINGSTRIKINGRATE,
                 Comparator.comparingDouble(IplCSVDao::getBowlingAverage).reversed());
+
+        comparators.put(LeagueAnalyser.ComparatorStatus.ECONOMYRATE,
+                (IplCSVDao player1, IplCSVDao player2) -> Double.compare(player2.getEconomeyRate()
+                                                                        , player1.getEconomeyRate()));
     }
 
     @Override
     public  Comparator<IplCSVDao>  getComparator(LeagueAnalyser.ComparatorStatus comparatorStatus){
+
         return comparators.get(comparatorStatus);
     }
 }

@@ -20,9 +20,10 @@ public class LeagueAnalyser {
 
     private List<IplCSVDao> batsManData;
     IComparatorProvider comparatorProvider;
+
     public LeagueAnalyser() {
-    batsManData=new ArrayList<>();
-    comparatorProvider = ComparatorProviderFactory.getComaparatorProvider();
+        batsManData=new ArrayList<>();
+        comparatorProvider = ComparatorProviderFactory.getComaparatorProvider();
     }
 
 
@@ -35,7 +36,8 @@ public class LeagueAnalyser {
         AVERAGERUN ,
         MAXRUN,
         BOWLINGAVERAGE,
-        BOWLINGSTRIKINGRATE ;
+        BOWLINGSTRIKINGRATE,
+        ECONOMYRATE;
     }
 
     public enum CsvFileType{
@@ -131,6 +133,11 @@ public class LeagueAnalyser {
         return getDtoList(CsvFileType.BOWLER);
     }
 
+
+    public List<Bowler> sortBaseOnEconomyRate() {
+        getSortedData(ComparatorStatus.ECONOMYRATE);
+        return getDtoList(CsvFileType.BOWLER);
+    }
 
     public List getDtoList(CsvFileType csvFileType) {
 

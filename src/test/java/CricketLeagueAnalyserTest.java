@@ -169,4 +169,15 @@ public class CricketLeagueAnalyserTest {
         Assert.assertEquals("Krishnappa Gowtham",topAvgBowler);
 
     }
+
+    @Test()
+    public void whenGivenIplMostWicketCsvData_ShouldReturnSortedDataBasedOnEconomyRate() {
+
+        LeagueAnalyser leageAnalyser = new LeagueAnalyser();
+        leageAnalyser.loadCSVData(LeagueAnalyser.CsvFileType.BOWLER ,
+                                        IPL_MOST_WICKET_CSV_FILE_PATH);
+        double bestEconomyRates = leageAnalyser.sortBaseOnEconomyRate().get(0).getEconomeyRate();
+        Assert.assertEquals(13.5,bestEconomyRates,0.0);
+
+    }
 }
