@@ -123,6 +123,7 @@ public class CricketLeagueAnalyserTest {
         LeagueAnalyser leageAnalyser = new LeagueAnalyser();
         leageAnalyser.loadCSVData(LeagueAnalyser.CsvFileType.BATSMAN,IPL_MOST_RUNS_CSV_FILE_PATH);
         List<BatsMan> batsManList = leageAnalyser.sortByAverageAndStrikingRate();
+        batsManList.forEach(System.out::println);
         Assert.assertEquals("MS Dhoni",batsManList.get(0).getPlayerName());
 
     }
@@ -157,5 +158,15 @@ public class CricketLeagueAnalyserTest {
 
     }
 
+    @Test
+    public void whenGivenIplMostWicketCsvData_ShouldReturnSortedDataByBowlingStrikingRate() {
 
+        LeagueAnalyser leageAnalyser = new LeagueAnalyser();
+        leageAnalyser.loadCSVData(LeagueAnalyser.CsvFileType.BOWLER,
+                IPL_MOST_WICKET_CSV_FILE_PATH);
+        List<Bowler> list = leageAnalyser.sortBaseOnBowlingStrikeRate();
+        String topAvgBowler = list.get(0).getPlayerName();
+        Assert.assertEquals("Krishnappa Gowtham",topAvgBowler);
+
+    }
 }

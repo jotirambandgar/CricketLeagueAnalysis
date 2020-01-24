@@ -4,6 +4,7 @@ import com.blsolution.exception.CSVBuilderException;
 import com.blsolution.factory.CSVBuilderFactory;
 import com.blsolution.repository.IOpenCsvBuilder;
 import com.bridgelabz.exception.LeagueAnalyserException;
+import com.bridgelabz.factory.ComparatorProviderFactory;
 import com.bridgelabz.model.BatsMan;
 import com.bridgelabz.model.Bowler;
 import com.bridgelabz.model.IplCSVDao;
@@ -18,9 +19,10 @@ import java.util.stream.StreamSupport;
 public class LeagueAnalyser {
 
     private List<IplCSVDao> batsManData;
-
+    IComparatorProvider comparatorProvider;
     public LeagueAnalyser() {
     batsManData=new ArrayList<>();
+    comparatorProvider = ComparatorProviderFactory.getComaparatorProvider();
     }
 
 
@@ -32,11 +34,11 @@ public class LeagueAnalyser {
         AVERAGESTRIKERATE ,
         AVERAGERUN ,
         MAXRUN,
-        BOWLINGAVERAGE
-
+        BOWLINGAVERAGE,
+        BOWLINGSTRIKINGRATE ;
     }
 
-    public static enum CsvFileType{
+    public enum CsvFileType{
         BATSMAN,
         BOWLER
     }
@@ -124,6 +126,11 @@ public class LeagueAnalyser {
 
     }
 
+    public List sortBaseOnBowlingStrikeRate() {
+        getSortedData(ComparatorStatus.BOWLINGSTRIKINGRATE);
+        return getDtoList(CsvFileType.BOWLER);
+    }
+
 
     public List getDtoList(CsvFileType csvFileType) {
 
@@ -135,9 +142,13 @@ public class LeagueAnalyser {
 
     public void getSortedData(ComparatorStatus comparatorType) {
 
-         batsManData.sort(ComparatorProvider.getComparator(comparatorType));
+         batsManData.sort(comparatorProvider.getComparator(comparatorType));
 
     }
+
+
+
+
 
 
 
