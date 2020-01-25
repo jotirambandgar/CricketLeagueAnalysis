@@ -5,6 +5,7 @@ import com.blsolution.factory.CSVBuilderFactory;
 import com.blsolution.repository.IOpenCsvBuilder;
 import com.bridgelabz.exception.LeagueAnalyserException;
 import com.bridgelabz.factory.ComparatorProviderFactory;
+import com.bridgelabz.factory.LeagueAdapterFactory;
 import com.bridgelabz.model.BatsMan;
 import com.bridgelabz.model.Bowler;
 import com.bridgelabz.model.IplCSVDao;
@@ -27,6 +28,8 @@ public class LeagueAnalyser {
     }
 
 
+
+
     public enum ComparatorStatus {
         BATTINGAVERAGE,
         STRIKERATE,
@@ -37,43 +40,22 @@ public class LeagueAnalyser {
         MAXRUN,
         BOWLINGAVERAGE,
         BOWLINGSTRIKINGRATE,
-        ECONOMYRATE;
+        ECONOMYRATE,
+        BLSTRIKINGWICKET,
+        BLAVERAGESTRIKINGWICKET,
+        BLAVGBTAVG;
     }
 
     public enum CsvFileType{
         BATSMAN,
-        BOWLER
+        BOWLER,
+        LEAGUE
     }
 
-    public int loadCSVData(CsvFileType csvFileType, String csvFilePath) {
+    public int loadCSVData(CsvFileType csvFileType, String... csvFilePath) {
 
+       batsManData = LeagueAdapterFactory.getLeagueAdapter(csvFileType,csvFilePath);
 
-        try(Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
-
-            IOpenCsvBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-            if(csvFileType.equals(CsvFileType.BATSMAN)) {
-                Iterator<BatsMan> batsManIterator = csvBuilder.getIterator(reader, BatsMan.class);
-                Iterable<BatsMan> batsManIterable = () -> batsManIterator;
-                batsManData = StreamSupport.stream(batsManIterable.spliterator(),false)
-                        .map(IplCSVDao::new).collect(Collectors.toList());
-            }
-
-            if(csvFileType.equals(CsvFileType.BOWLER)) {
-                Iterator<Bowler> batsManIterator = csvBuilder.getIterator(reader, Bowler.class);
-                Iterable<Bowler> batsManIterable = () -> batsManIterator;
-                batsManData = StreamSupport.stream(batsManIterable.spliterator(),false)
-                        .map(IplCSVDao::new).collect(Collectors.toList());
-            }
-
-
-        } catch (IOException e) {
-
-           throw new LeagueAnalyserException(e.getMessage(),LeagueAnalyserException.ExceptionType.NO_CSV_FILE);
-
-        } catch (CSVBuilderException builderException){
-            throw new LeagueAnalyserException(builderException.getMessage() ,
-                                    LeagueAnalyserException.ExceptionType.IPL_FILE_PROBLEM);
-        }
         return batsManData.size();
 
     }
@@ -138,6 +120,22 @@ public class LeagueAnalyser {
         getSortedData(ComparatorStatus.ECONOMYRATE);
         return getDtoList(CsvFileType.BOWLER);
     }
+
+    public List<Bowler> sortBaseOnStrikingRateAndWicket() {
+        getSortedData(ComparatorStatus.BLSTRIKINGWICKET);
+        return getDtoList(CsvFileType.BOWLER);
+    }
+
+    public List<Bowler> sortBaseOnStrikingRateAndBowlingAvg() {
+        getSortedData(ComparatorStatus.BLAVERAGESTRIKINGWICKET);
+        return getDtoList(CsvFileType.BOWLER);
+    }
+
+    public List<IplCSVDao> sortBaseOnBatingAvgBowlingAvg() {
+        getSortedData(ComparatorStatus.BLAVGBTAVG);
+        return batsManData;
+    }
+
 
     public List getDtoList(CsvFileType csvFileType) {
 
